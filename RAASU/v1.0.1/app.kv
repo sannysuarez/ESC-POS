@@ -2,11 +2,13 @@ BoxLayout:
     orientation: "vertical"
     padding: 10
     spacing: 8
+    size_hint: 1, 1
 
-
+    # NAVBAR
     BoxLayout:
         size_hint_y: None
-        height: "55dp"
+        height: "50dp"
+        padding: "10dp", 0
 
         canvas.before:
             Color:
@@ -19,32 +21,41 @@ BoxLayout:
             text: "Ra'asu Ventures"
             color: 1,1,1,1
             bold: True
-            font_size: 20
+            font_size: 18
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
 
         Label:
             id: datetime_label
             text: ""
             color: 1,1,1,1
             halign: "right"
+            valign: "middle"
+            text_size: self.size
 
 
+    # PRODUCT ROW
     BoxLayout:
         size_hint_y: None
         height: "45dp"
         spacing: 10
 
-
         Label:
-            text: "Fruit Mixed Salad"
-            font_size: 18
+            text: "Fruits Mixed Salad"
+            font_size: 16
             size_hint_x: .35
-
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
 
         Label:
             text: "₦1,500"
-            font_size: 18
+            font_size: 16
             size_hint_x: .15
-
+            halign: "right"
+            valign: "middle"
+            text_size: self.size
 
         TextInput:
             id: qty
@@ -53,13 +64,11 @@ BoxLayout:
             input_filter: "int"
             size_hint_x: .1
 
-
         TextInput:
             id: customer
             hint_text: "Customer (optional)"
             multiline: False
             size_hint_x: .25
-
 
         Button:
             text: "PRINT"
@@ -67,27 +76,61 @@ BoxLayout:
             on_press: app.confirm_print()
 
 
+    # STATUS
     Label:
         id: status
         text: ""
         color: 1,0,0,1
         size_hint_y: None
         height: "25dp"
+        halign: "left"
+        valign: "middle"
+        text_size: self.size
 
 
+    # SALES SUMMARY
     BoxLayout:
         orientation: "vertical"
-        padding: 10
-        spacing: 6
+        padding: 4
+        spacing: 2
+        size_hint_y: None
+        height: "60dp"
 
         Label:
             text: "TODAY SALES SUMMARY"
             bold: True
+            halign: "left"
+            valign: "middle"
+            text_size: self.size
+            size_hint_y: None
+            height: "20dp"
 
-        Label:
-            id: total_items
-            text: "Total Items Sold: 0"
+        BoxLayout:
+            spacing: 10
+            size_hint_y: None
+            height: "30dp"
 
-        Label:
-            id: total_revenue
-            text: "Total Revenue: ₦0"
+            Label:
+                id: total_items
+                text: "Total Items Sold: 0"
+                halign: "left"
+                valign: "middle"
+                text_size: self.size
+                size_hint_x: .35
+
+            Label:
+                id: total_revenue
+                text: "Total Revenue: ₦0"
+                halign: "left"
+                valign: "middle"
+                text_size: self.size
+                size_hint_x: .40
+
+            Button:
+                text: "SYNC"
+                size_hint_x: .25
+                on_press: app.sync_sales()
+
+
+    # FLEX SPACE (pushes content upward)
+    Widget:
