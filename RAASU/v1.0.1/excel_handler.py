@@ -2,7 +2,10 @@ from openpyxl import Workbook, load_workbook
 import os
 from datetime import datetime
 
-SALES_DIR = "sales"
+# Detect user's Documents folder
+DOCUMENTS = os.path.join(os.path.expanduser("~"), "Documents")
+
+SALES_DIR = os.path.join(DOCUMENTS, "raasu-pos-sales")
 
 
 def get_today_file():
@@ -12,7 +15,7 @@ def get_today_file():
     if not os.path.exists(SALES_DIR):
         os.makedirs(SALES_DIR)
 
-    return f"{SALES_DIR}/{today}.xlsx"
+    return os.path.join(SALES_DIR, f"{today}.xlsx")
 
 
 def save_invoice(data):
