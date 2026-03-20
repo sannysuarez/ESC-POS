@@ -1,3 +1,27 @@
+import sys
+import os
+
+# Detect base directory (works for Python and PyInstaller EXE)
+if getattr(sys, 'frozen', False):
+    BASE_DIR = sys._MEIPASS
+else:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+# Fix Kivy dependency paths when running from PyInstaller
+if getattr(sys, 'frozen', False):
+    _MEIPASS = getattr(sys, "_MEIPASS", BASE_DIR)
+
+    os.environ["KIVY_GL_BACKEND"] = "angle_sdl2"
+    os.environ["KIVY_HOME"] = os.path.join(_MEIPASS, "kivy_deps")
+
+    sys.path.append(os.path.join(_MEIPASS, "kivy_deps", "angle"))
+    sys.path.append(os.path.join(_MEIPASS, "kivy_deps", "glew"))
+    sys.path.append(os.path.join(_MEIPASS, "kivy_deps", "sdl2"))
+else:
+    os.environ["KIVY_GL_BACKEND"] = "angle_sdl2"
+
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -20,7 +44,10 @@ UNIT_PRICE = 1500
 class RaasuApp(App):
 
     def build(self):
-        self.root = Builder.load_file("app.kv")
+
+        kv_path = os.path.join(BASE_DIR, "app.kv")
+        self.root = Builder.load_file(kv_path)
+
         Clock.schedule_interval(self.update_time, 1)
         Clock.schedule_once(self.update_today_summary, 0)
         return self.root
@@ -118,7 +145,7 @@ class RaasuApp(App):
             # only save if printing worked
             save_invoice(data)
 
-            self.root.ids.status.color = (0, 1, 0, 1)  # full green
+            self.root.ids.status.color = (0, 1, 0, 1)
             self.root.ids.status.text = "Printed successfully."
 
             self.clear_inputs()
@@ -145,7 +172,6 @@ class RaasuApp(App):
 
         self.root.ids.total_items.text = f"Total Items Sold: {items}"
         self.root.ids.total_revenue.text = f"Total Revenue: ₦{revenue:,}"
-       
 
 
 if __name__ == "__main__":
