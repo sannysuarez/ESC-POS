@@ -37,7 +37,7 @@
                 </div>
                 <hr>
                 <div class="mb-3">
-                    <strong>Total: ₹<span id="cart-total">0.00</span></strong>
+                    <strong>Total: ₦<span id="cart-total">0</span></strong>
                 </div>
                 <button id="btn-complete-sale" class="btn btn-success w-100 me-2" disabled>
                     <i class="fas fa-check"></i> Complete Sale
@@ -70,7 +70,7 @@ function renderProductsList() {
         <div class="row mb-2 p-2 border rounded">
             <div class="col-8">
                 <div><strong>${p.name}</strong></div>
-                <small class="text-muted">₹${p.price.toFixed(2)}</small>
+                <small class="text-muted">₦${Number(p.price).toLocaleString(undefined,{maximumFractionDigits:0,minimumFractionDigits:0})}</small>
             </div>
             <div class="col-4 text-end">
                 <button class="btn btn-sm btn-primary" onclick="addToCart(${p.id}, '${p.name}', ${p.price})">
@@ -131,7 +131,7 @@ function renderCart() {
             <div class="row mb-2 p-2 border rounded">
                 <div class="col-6">
                     <div><strong>${item.product_name}</strong></div>
-                    <small>₹${item.price.toFixed(2)}</small>
+                    <small>₦${Number(item.price).toLocaleString(undefined,{maximumFractionDigits:0,minimumFractionDigits:0})}</small>
                 </div>
                 <div class="col-3">
                     <input type="number" class="form-control form-control-sm" value="${item.quantity}" 
@@ -142,13 +142,13 @@ function renderCart() {
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <div class="col-12 text-end mt-1"><small>₹${itemTotal.toFixed(2)}</small></div>
+                <div class="col-12 text-end mt-1"><small>₦${Number(itemTotal).toLocaleString(undefined,{maximumFractionDigits:0,minimumFractionDigits:0})}</small></div>
             </div>
         `;
     }).join('');
     
     document.getElementById('cart-items').innerHTML = html;
-    document.getElementById('cart-total').textContent = total.toFixed(2);
+    document.getElementById('cart-total').textContent = Number(total).toLocaleString(undefined, {maximumFractionDigits:0, minimumFractionDigits:0});
     document.getElementById('btn-complete-sale').disabled = false;
     document.getElementById('btn-print-receipt').disabled = false;
 }
@@ -166,7 +166,7 @@ document.getElementById('btn-complete-sale').addEventListener('click', function(
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Sale completed! Total: ₹' + data.total.toFixed(2));
+            alert('Sale completed! Total: ₦' + Number(data.total).toLocaleString(undefined, {maximumFractionDigits:0, minimumFractionDigits:0}));
             cart = [];
             renderCart();
         } else {

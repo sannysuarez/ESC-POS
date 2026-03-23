@@ -12,7 +12,7 @@
     <div class="col-md-3">
         <div class="stat-card">
             <h5>Today's Total</h5>
-            <div class="value" id="today-total">₹{{ "%.2f"|format(stats.today_total) }}</div>
+            <div class="value" id="today-total">₦{{ "{:,.0f}".format(stats.today_total) }}</div>
         </div>
     </div>
     <div class="col-md-3">
@@ -89,7 +89,7 @@ setInterval(function() {
     fetch('/api/dashboard-stats')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('today-total').innerHTML = '₹' + data.today_total.toFixed(2);
+            document.getElementById('today-total').innerHTML = '₦' + Number(data.today_total).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         });
 }, 30000);
 

@@ -81,29 +81,29 @@ def view_sale(sale_id):
 @sales_bp.route('/analytics/daily', methods=['GET'])
 @login_required
 def daily_analytics():
-    """Get daily sales analytics for last 7 days"""
+    """Get daily sales analytics for last 30 days"""
     end_date = datetime.now().date()
-    start_date = end_date - timedelta(days=6)
-    
+    start_date = end_date - timedelta(days=29)
+
     sales = Sale.query.filter(
         Sale.sale_date >= start_date,
         Sale.sale_date <= end_date
     ).all()
-    
+
     # Group by date
     daily_data = {}
-    for i in range(7):
+    for i in range(30):
         date = start_date + timedelta(days=i)
         daily_data[date.isoformat()] = 0.0
-    
+
     for sale in sales:
         date_key = sale.sale_date.isoformat()
         daily_data[date_key] += sale.total_amount
-    
+
     return jsonify({
         'dates': list(daily_data.keys()),
         'totals': list(daily_data.values()),
-        'currency': 'USD'
+        'currency': 'INR'
     })
 
 @sales_bp.route('/analytics/chart')

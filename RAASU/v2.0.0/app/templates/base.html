@@ -1,7 +1,3 @@
-"""
-Base template for RAASU POS System
-Note: This is a placeholder. You can customize this with your Bootstrap template.
-"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +11,8 @@ Note: This is a placeholder. You can customize this with your Bootstrap template
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.min.js"></script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}">
     
     <style>
         :root {
@@ -118,6 +116,7 @@ Note: This is a placeholder. You can customize this with your Bootstrap template
         .table-hover tbody tr:hover {
             background-color: #f3f4f6;
         }
+
     </style>
     
     {% block extra_css %}{% endblock %}
@@ -127,7 +126,7 @@ Note: This is a placeholder. You can customize this with your Bootstrap template
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url_for('main.dashboard') }}">
-                <i class="fas fa-cash-register"></i> RAASU POS
+                <img src="{{ url_for('static', filename='favicon_io/favicon-32x32.png') }}" alt="Logo" class="img-fluid" style="max-height: 40px;"> Ra'asu Ventures
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>

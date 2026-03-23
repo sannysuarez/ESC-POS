@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">7-Day Sales Comparison</h5>
+                <h5 class="card-title mb-0">30-Day Daily Sales Comparison</h5>
             </div>
             <div class="card-body">
                 <canvas id="salesChart" style="max-height: 400px;"></canvas>
@@ -35,7 +35,7 @@ fetch('/sales/analytics/daily')
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Daily Sales (₹)',
+                    label: 'Daily Sales (₦)',
                     data: data.totals,
                     backgroundColor: '#2563eb',
                     borderColor: '#1e40af',
@@ -56,7 +56,7 @@ fetch('/sales/analytics/daily')
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return '₹' + value.toFixed(0);
+                                return '₦' + Number(value).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
                             }
                         }
                     }

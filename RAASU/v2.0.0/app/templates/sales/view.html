@@ -65,8 +65,8 @@
                             <tr>
                                 <td>{{ item.product.name }}</td>
                                 <td>{{ item.quantity }}</td>
-                                <td>₹{{ "%.2f"|format(item.price) }}</td>
-                                <td>₹{{ "%.2f"|format(item.total) }}</td>
+                                <td>₦{{ "{:,.0f}".format(item.price) }}</td>
+                                <td>₦{{ "{:,.0f}".format(item.total) }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -74,7 +74,7 @@
                 </div>
                 <hr>
                 <div class="text-end">
-                    <h4>Total: ₹{{ "%.2f"|format(sale.total_amount) }}</h4>
+                    <h4>Total: ₦{{ "{:,.0f}".format(sale.total_amount) }}</h4>
                 </div>
             </div>
         </div>
