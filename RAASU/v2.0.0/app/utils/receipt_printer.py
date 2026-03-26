@@ -84,7 +84,7 @@ class ThermalReceiptPrinter:
         self.reset()
         
         # Header
-        self.print_text(venture_name, align=self.ALIGN_CENTER, bold=True)
+        self.print_text("Ra'asu Ventures", align=self.ALIGN_CENTER, bold=True)
         self.print_text(address, align=self.ALIGN_CENTER)
         self.print_line()
         
@@ -105,13 +105,13 @@ class ThermalReceiptPrinter:
             price = item['price']
             item_total = qty * price
             
-            line = f"{product_name:<15} {qty:>4} {price:>6.2f} {item_total:>6.2f}"
+            line = f"{product_name:<15} {qty:>4} ₦{price:>6,.0f} ₦{item_total:>6,.0f}"
             self.print_text(line, align=self.ALIGN_LEFT)
         
         self.print_line()
         
         # Total
-        total_line = f"{'TOTAL':<15} {total:>17.2f}"
+        total_line = f"₦{'TOTAL':<15} ₦{total:>17,.0f}"
         self.print_text(total_line, align=self.ALIGN_LEFT, bold=True)
         
         # Footer
